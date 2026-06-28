@@ -3,15 +3,15 @@ from __future__ import annotations
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CallbackQueryHandler, ContextTypes
 
-from database.factory import content_repo
+from database.factory import content_repo, platform_repo
 from keyboards.common import rows_from
-from utils.constants import BOOK_LEVELS, QA_GRADES
+from utils.i18n import BTN_BACK
 
 
 async def qa_entry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text("Q&A Revision: choose grade.", reply_markup=rows_from("qa:grade", QA_GRADES))
+    await query.edit_message_text("❓ S&J Muraajaco\n\nXulo fasalka:", reply_markup=rows_from("qa:grade", platform_repo(context).get()["qa_classes"]))
 
 
 async def qa_grade(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -19,8 +19,8 @@ async def qa_grade(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await query.answer()
     grade = query.data.split(":", 2)[2]
     context.user_data["qa_grade"] = grade
-    subjects = BOOK_LEVELS["secondary"]["subjects"] if "Form" in grade else BOOK_LEVELS["middle"]["subjects"]
-    await query.edit_message_text("Choose subject.", reply_markup=rows_from("qa:subject", subjects, back="home:qa"))
+    level = platform_repo(context).level_for_class(grade)
+    await query.edit_message_text("❓ S&J\n\nXulo maaddo:", reply_markup=rows_from("qa:subject", platform_repo(context).subjects_for_level(level), back="home:qa"))
 
 
 async def qa_subject(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -29,11 +29,11 @@ async def qa_subject(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     subject = query.data.split(":", 2)[2]
     items = content_repo(context, "qa").filter(grade=context.user_data["qa_grade"], subject=subject)
     if not items:
-        await query.edit_message_text("No questions found.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Back", callback_data="home:qa")]]))
+        await query.edit_message_text("📭 Su'aalo lama helin.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(BTN_BACK, callback_data="home:qa")]]))
         return
-    rows = [[InlineKeyboardButton(f"Question {index + 1}", callback_data=f"qa:open:{item['id']}")] for index, item in enumerate(items[:10])]
-    rows.append([InlineKeyboardButton("Back", callback_data="home:qa")])
-    await query.edit_message_text("Choose a question.", reply_markup=InlineKeyboardMarkup(rows))
+    rows = [[InlineKeyboardButton(f"❓ Su'aal {index + 1}", callback_data=f"qa:open:{item['id']}")] for index, item in enumerate(items[:10])]
+    rows.append([InlineKeyboardButton(BTN_BACK, callback_data="home:qa")])
+    await query.edit_message_text("❓ Xulo su'aal:", reply_markup=InlineKeyboardMarkup(rows))
 
 
 async def qa_open(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -44,7 +44,7 @@ async def qa_open(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if not item:
         return
     choices = "\n".join(f"{idx + 1}. {choice}" for idx, choice in enumerate(item.get("choices", [])))
-    await query.edit_message_text(f"{item['question']}\n\n{choices}\n\nAnswer: {item['answer']}")
+    await query.edit_message_text(f"❓ {item['question']}\n\n{choices}\n\n✅ Jawaab: {item['answer']}")
 
 
 def register_qa_handlers(app: Application) -> None:

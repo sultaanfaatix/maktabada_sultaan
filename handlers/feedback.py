@@ -9,17 +9,17 @@ from database.factory import feedback_repo
 async def feedback_entry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text("Send feedback with:\n/feedback Your name | Your comment")
+    await query.edit_message_text("💬 Faallo\n\nSoo dir:\n/feedback Magacaaga | Faalladaada")
 
 
 async def feedback_submit(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     raw = " ".join(context.args)
     if "|" not in raw:
-        await update.message.reply_text("Usage: /feedback Your name | Your comment")
+        await update.message.reply_text("Isticmaal: /feedback Magacaaga | Faalladaada")
         return
     name, comment = [part.strip() for part in raw.split("|", 1)]
     feedback_repo(context).add({"name": name, "comment": comment, "user_id": update.effective_user.id})
-    await update.message.reply_text("Thank you. Your feedback has been received.")
+    await update.message.reply_text("Mahadsanid. Faalladaada waa la helay.")
 
 
 def register_feedback_handlers(app: Application) -> None:

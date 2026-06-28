@@ -1,108 +1,112 @@
 from __future__ import annotations
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import Update
 from telegram.ext import CallbackQueryHandler, CommandHandler, ContextTypes, ConversationHandler, MessageHandler, filters
 
-from admin.security import admin_only
-from database.factory import content_repo
+from admin.security import has_permission
+from database.factory import activity_repo, content_repo, platform_repo
 from keyboards.common import rows_from
-from utils.constants import BOOK_LEVELS, BOOK_TYPES, EXAM_GRADES, EXAM_YEARS, LESSON_GRADES
+from utils.i18n import BOOK_TYPE_LABELS
 
-CHOOSING_KIND, FIELD, TITLE, FILE = range(4)
+FIELD, TITLE, FILE = range(3)
+UPLOAD_PERMISSIONS = {"books": "upload_books", "exams": "upload_exams", "lessons": "upload_lessons"}
 
 
-@admin_only
 async def start_upload(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
     kind = query.data.split(":")[-1]
+    if not has_permission(update, context, UPLOAD_PERMISSIONS[kind]):
+        await query.answer("Ogolaansho kuma filna.", show_alert=True)
+        return ConversationHandler.END
     context.user_data["upload"] = {"kind": kind}
+    settings = platform_repo(context).get()
     if kind == "books":
-        await query.edit_message_text("Book upload: choose level.", reply_markup=rows_from("upload:level", [meta["label"] for meta in BOOK_LEVELS.values()], back="admin:menu"))
+        labels = [meta["label"] for meta in settings["levels"].values()]
+        await query.edit_message_text("📚 Upload Buug\n\nXulo heer:", reply_markup=rows_from("upload:level", labels, back="admin:menu"))
     elif kind == "exams":
-        await query.edit_message_text("Exam upload: choose grade.", reply_markup=rows_from("upload:exam_grade", EXAM_GRADES, back="admin:menu"))
+        await query.edit_message_text("📝 Upload Imtixaan\n\nXulo fasal:", reply_markup=rows_from("upload:exam_grade", settings["exam_classes"], back="admin:menu"))
     else:
-        await query.edit_message_text("Lesson upload: choose grade.", reply_markup=rows_from("upload:lesson_grade", LESSON_GRADES, back="admin:menu"))
+        await query.edit_message_text("🎓 Upload Cashar\n\nXulo fasal:", reply_markup=rows_from("upload:lesson_grade", settings["lesson_classes"], back="admin:menu"))
     return FIELD
 
 
-@admin_only
 async def upload_field(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
-    data = query.data.split(":", 2)
-    field, value = data[1], data[2]
+    field, value = query.data.split(":", 2)[1:]
     upload = context.user_data["upload"]
+    repo = platform_repo(context)
 
     if field == "level":
-        level = next(key for key, meta in BOOK_LEVELS.items() if meta["label"] == value)
+        level = repo.level_by_label(value)
         upload["level"] = level
-        await query.edit_message_text("Choose grade.", reply_markup=rows_from("upload:book_grade", BOOK_LEVELS[level]["grades"], back="admin:menu"))
+        await query.edit_message_text("Xulo fasal:", reply_markup=rows_from("upload:book_grade", repo.classes_for_level(level), back="admin:menu"))
     elif field == "book_grade":
         upload["grade"] = value
-        await query.edit_message_text("Choose subject.", reply_markup=rows_from("upload:book_subject", BOOK_LEVELS[upload["level"]]["subjects"], back="admin:menu"))
+        await query.edit_message_text("Xulo maaddo:", reply_markup=rows_from("upload:book_subject", repo.subjects_for_level(upload["level"]), back="admin:menu"))
     elif field == "book_subject":
         upload["subject"] = value
-        await query.edit_message_text("Choose book type.", reply_markup=rows_from("upload:book_type", BOOK_TYPES, back="admin:menu"))
+        settings = repo.get()
+        labels = [BOOK_TYPE_LABELS.get(item, item) for item in settings["book_types"]]
+        upload["book_type_map"] = dict(zip(labels, settings["book_types"]))
+        await query.edit_message_text("Xulo nooca buugga:", reply_markup=rows_from("upload:book_type", labels, back="admin:menu"))
     elif field == "book_type":
-        upload["book_type"] = value
-        await query.edit_message_text("Send the title as a text message.")
+        upload["book_type"] = upload.pop("book_type_map", {}).get(value, value)
+        await query.edit_message_text("Soo dir title-ka buugga.")
         return TITLE
     elif field == "exam_grade":
         upload["grade"] = value
-        await query.edit_message_text("Choose year.", reply_markup=rows_from("upload:exam_year", EXAM_YEARS, back="admin:menu"))
+        await query.edit_message_text("Xulo sanad dugsiyeed:", reply_markup=rows_from("upload:exam_year", repo.get()["exam_years"], back="admin:menu"))
     elif field == "exam_year":
         upload["year"] = value
-        subjects = BOOK_LEVELS["middle"]["subjects"] if upload["grade"] == "8aad" else BOOK_LEVELS["secondary"]["subjects"]
-        await query.edit_message_text("Choose subject.", reply_markup=rows_from("upload:exam_subject", subjects, back="admin:menu"))
+        level = repo.level_for_class(upload["grade"])
+        await query.edit_message_text("Xulo maaddo:", reply_markup=rows_from("upload:exam_subject", repo.subjects_for_level(level), back="admin:menu"))
     elif field == "exam_subject":
         upload["subject"] = value
-        await query.edit_message_text("Send the exam title as a text message.")
+        await query.edit_message_text("Soo dir title-ka imtixaanka.")
         return TITLE
     elif field == "lesson_grade":
         upload["grade"] = value
-        await query.edit_message_text("Choose subject.", reply_markup=rows_from("upload:lesson_subject", BOOK_LEVELS["secondary"]["subjects"], back="admin:menu"))
+        level = repo.level_for_class(value)
+        await query.edit_message_text("Xulo maaddo:", reply_markup=rows_from("upload:lesson_subject", repo.subjects_for_level(level), back="admin:menu"))
     elif field == "lesson_subject":
         upload["subject"] = value
-        await query.edit_message_text("Send the lesson title as a text message.")
+        await query.edit_message_text("Soo dir title-ka casharka.")
         return TITLE
     return FIELD
 
 
-@admin_only
 async def upload_title(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data["upload"]["title"] = update.message.text.strip()
     kind = context.user_data["upload"]["kind"]
-    if kind == "lessons":
-        await update.message.reply_text("Send the lesson PDF or video.")
-    else:
-        await update.message.reply_text("Send the PDF document.")
+    await update.message.reply_text("Soo dir PDF ama video." if kind == "lessons" else "Soo dir PDF document.")
     return FILE
 
 
-@admin_only
 async def upload_file(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     upload = context.user_data["upload"]
     document = update.message.document
     video = update.message.video
     if not document and not video:
-        await update.message.reply_text("Please send a Telegram document or video file.")
+        await update.message.reply_text("Fadlan soo dir document ama video.")
         return FILE
     if upload["kind"] != "lessons" and not document:
-        await update.message.reply_text("Books and exams must be uploaded as PDF documents.")
+        await update.message.reply_text("Buugaag iyo imtixaanno waa inay PDF/document noqdaan.")
         return FILE
 
     file_id = document.file_id if document else video.file_id
     media_type = "video" if video else "document"
     record = content_repo(context, upload["kind"]).add({**upload, "file_id": file_id, "media_type": media_type})
+    activity_repo(context).log(update.effective_user.id, "upload", {"collection": upload["kind"], "id": record["id"]})
     context.user_data.pop("upload", None)
-    await update.message.reply_text(f"Upload saved.\nID: {record['id']}")
+    await update.message.reply_text(f"Upload waa la keydiyay.\nID: {record['id']}")
     return ConversationHandler.END
 
 
 async def cancel_upload(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data.pop("upload", None)
-    await update.effective_message.reply_text("Upload cancelled.")
+    await update.effective_message.reply_text("Upload waa la joojiyay.")
     return ConversationHandler.END
 
 

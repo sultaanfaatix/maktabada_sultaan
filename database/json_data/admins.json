@@ -1,0 +1,20 @@
+{
+  "6357788202": {
+    "user_id": 6357788202,
+    "role": "owner",
+    "permissions": [
+      "upload_books",
+      "upload_exams",
+      "upload_lessons",
+      "manage_results",
+      "manage_subjects",
+      "manage_classes",
+      "manage_years",
+      "manage_admins",
+      "view_statistics",
+      "delete_content",
+      "backup_restore"
+    ],
+    "created_at": "2026-06-28T19:49:50.826787+00:00"
+  }
+}
