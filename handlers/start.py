@@ -18,7 +18,7 @@ def is_admin(update: Update, context: ContextTypes.DEFAULT_TYPE) -> bool:
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.effective_message.reply_text(
-        "Welcome to MAKTABADA SULTAAN v2.\nChoose a service:",
+        "Welcome to MAKTABADA SULTAAN.\nChoose a service:",
         reply_markup=main_menu(is_admin(update, context)),
     )
 
@@ -28,7 +28,7 @@ async def home_menu(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await query.answer()
 
     await query.edit_message_text(
-        "MAKTABADA SULTAAN v2\nChoose a service:",
+        "MAKTABADA SULTAAN\nChoose a service:",
         reply_markup=main_menu(is_admin(update, context)),
     )
 

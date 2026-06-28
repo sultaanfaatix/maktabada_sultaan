@@ -11,7 +11,7 @@ from utils.constants import BOOK_LEVELS, BOOK_TYPES
 async def books_entry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text("Books: choose level.", reply_markup=rows_from("books:level", [v["label"] for v in BOOK_LEVELS.values()]))
+    await query.edit_message_text("BUUGAAG: Xulo Heer.", reply_markup=rows_from("books:level", [v["label"] for v in BOOK_LEVELS.values()]))
 
 
 async def books_level(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

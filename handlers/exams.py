@@ -11,7 +11,7 @@ from utils.constants import BOOK_LEVELS, EXAM_GRADES, EXAM_YEARS
 async def exams_entry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text("Exams: choose grade.", reply_markup=rows_from("exams:grade", EXAM_GRADES))
+    await query.edit_message_text("IMTIXAANAAD: Xulo Fasalka.", reply_markup=rows_from("exams:grade", EXAM_GRADES))
 
 
 async def exams_grade(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
