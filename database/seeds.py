@@ -73,13 +73,12 @@ DEFAULT_ABOUT_PROFILE = {
             "chat_link": "https://wa.me/252684613207"
         },
         "email": "sultaanfaatix@gmail.com",
-        "telegram": "@MAKTABADA SULTAAN"
+        "telegram": "@MAKTABADA SULTAAN 📚"
     },
 
     "social_links": {
         "telegram": "https://t.me/SultanLibraryBot",
         "facebook": "https://www.facebook.com/sultaanfaatix",
-        "youtube": "https://youtube.com/@maktabadasultaan"
     },
 
     "photo_file_id": "",
