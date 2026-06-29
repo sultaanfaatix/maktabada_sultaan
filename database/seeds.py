@@ -53,3 +53,24 @@ DEFAULT_PLATFORM_SETTINGS = {
     "qa_classes": ["5aad", "6aad", "7aad", "8aad", "Form 1", "Form 2", "Form 3", "Form 4"],
     "exam_types": ["Monthly 1", "Monthly 2", "Mid-term 1", "Mid-term 2", "Final Exam"],
 }
+
+
+DEFAULT_ABOUT_PROFILE = {
+    "founder_name": "Sultaan",
+    "founder_title": "Founder & Education Platform Lead",
+    "organization": "MAKTABADA SULTAAN",
+    "mission": "In la fududeeyo helitaanka buugaag, imtixaanno, casharro, natiijooyin iyo muraajaco tayo leh oo arday kasta gaari karo.",
+    "description": "MAKTABADA SULTAAN waa madal waxbarasho oo Telegram ku shaqeysa, looguna talagalay ardayda, macallimiinta iyo waalidiinta.",
+    "contact": {
+        "phone": "+252 000 000000",
+        "email": "info@maktabadasultaan.example",
+        "telegram": "@maktabadasultaan"
+    },
+    "social_links": {
+        "Telegram": "https://t.me/maktabadasultaan",
+        "Facebook": "https://facebook.com/maktabadasultaan",
+        "YouTube": "https://youtube.com/@maktabadasultaan"
+    },
+    "photo_file_id": "",
+    "logo_file_id": ""
+}

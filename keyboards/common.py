@@ -4,6 +4,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton,
 
 from utils.i18n import (
     BTN_ADMIN,
+    BTN_ABOUT,
     BTN_BACK,
     BTN_BOOKS,
     BTN_EXAMS,
@@ -21,7 +22,8 @@ def main_menu(is_admin: bool = False) -> InlineKeyboardMarkup:
         [InlineKeyboardButton(BTN_BOOKS, callback_data="home:books"), InlineKeyboardButton(BTN_EXAMS, callback_data="home:exams")],
         [InlineKeyboardButton(BTN_LESSONS, callback_data="home:lessons"), InlineKeyboardButton(BTN_RESULTS, callback_data="home:results")],
         [InlineKeyboardButton(BTN_QA, callback_data="home:qa"), InlineKeyboardButton(BTN_FEEDBACK, callback_data="home:feedback")],
-        [InlineKeyboardButton(BTN_SETTINGS, callback_data="home:settings"), InlineKeyboardButton(BTN_PROFILE, callback_data="home:profile")],
+        [InlineKeyboardButton(BTN_ABOUT, callback_data="about:home"), InlineKeyboardButton(BTN_PROFILE, callback_data="home:profile")],
+        [InlineKeyboardButton(BTN_SETTINGS, callback_data="home:settings")],
     ]
     if is_admin:
         rows.append([InlineKeyboardButton(BTN_ADMIN, callback_data="admin:menu")])
@@ -56,7 +58,7 @@ def bottom_menu(is_admin: bool = False) -> ReplyKeyboardMarkup:
     rows = [
         [KeyboardButton(BTN_BOOKS), KeyboardButton(BTN_EXAMS), KeyboardButton(BTN_LESSONS)],
         [KeyboardButton(BTN_RESULTS), KeyboardButton(BTN_QA), KeyboardButton(BTN_FEEDBACK)],
-        [KeyboardButton(BTN_PROFILE), KeyboardButton(BTN_SETTINGS)],
+        [KeyboardButton(BTN_PROFILE), KeyboardButton(BTN_ABOUT), KeyboardButton(BTN_SETTINGS)],
     ]
     if is_admin:
         rows.append([KeyboardButton(BTN_ADMIN)])

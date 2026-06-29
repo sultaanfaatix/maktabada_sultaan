@@ -1,0 +1,19 @@
+{
+  "founder_name": "Sultaan",
+  "founder_title": "Founder & Education Platform Lead",
+  "organization": "MAKTABADA SULTAAN",
+  "mission": "In la fududeeyo helitaanka buugaag, imtixaanno, casharro, natiijooyin iyo muraajaco tayo leh oo arday kasta gaari karo.",
+  "description": "MAKTABADA SULTAAN waa madal waxbarasho oo Telegram ku shaqeysa, looguna talagalay ardayda, macallimiinta iyo waalidiinta.",
+  "contact": {
+    "phone": "+252 000 000000",
+    "email": "info@maktabadasultaan.example",
+    "telegram": "@maktabadasultaan"
+  },
+  "social_links": {
+    "Telegram": "https://t.me/maktabadasultaan",
+    "Facebook": "https://facebook.com/maktabadasultaan",
+    "YouTube": "https://youtube.com/@maktabadasultaan"
+  },
+  "photo_file_id": "",
+  "logo_file_id": ""
+}

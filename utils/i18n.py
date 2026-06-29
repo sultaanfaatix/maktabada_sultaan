@@ -8,6 +8,7 @@ BTN_QA = "❓ S&J"
 BTN_FEEDBACK = "💬 Faallo"
 BTN_SETTINGS = "⚙️ Settings"
 BTN_PROFILE = "👤 Profile"
+BTN_ABOUT = "ℹ️ About"
 BTN_ADMIN = "⚙️ Maamulka"
 BTN_BACK = "🔙 Dib-u-noqo"
 

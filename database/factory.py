@@ -7,6 +7,7 @@ from database.repositories import (
     ActivityLogRepository,
     AdminRepository,
     AnalyticsRepository,
+    AboutRepository,
     BackupRepository,
     ContentRepository,
     FeedbackRepository,
@@ -54,3 +55,7 @@ def activity_repo(context: ContextTypes.DEFAULT_TYPE) -> ActivityLogRepository:
 
 def backup_repo(context: ContextTypes.DEFAULT_TYPE) -> BackupRepository:
     return BackupRepository(storage_from_context(context))
+
+
+def about_repo(context: ContextTypes.DEFAULT_TYPE) -> AboutRepository:
+    return AboutRepository(storage_from_context(context))

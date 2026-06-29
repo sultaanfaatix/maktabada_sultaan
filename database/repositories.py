@@ -7,7 +7,7 @@ from typing import Any
 from uuid import uuid4
 
 from database.json_storage import JsonStorage
-from database.seeds import DEFAULT_PLATFORM_SETTINGS
+from database.seeds import DEFAULT_ABOUT_PROFILE, DEFAULT_PLATFORM_SETTINGS
 from utils.i18n import ALL_PERMISSIONS
 
 
@@ -335,6 +335,30 @@ class AnalyticsRepository:
             "top_downloads": sorted(data["downloads"].values(), key=lambda item: item["count"], reverse=True)[:5],
         }
 
+    def data(self) -> dict[str, Any]:
+        return self.storage.read("analytics", {"users": {}, "events": [], "downloads": {}})
+
+    def users(self, query: str = "") -> list[dict[str, Any]]:
+        data = self.data()
+        users = [{"user_id": user_id, **payload} for user_id, payload in data["users"].items()]
+        if query:
+            q = query.casefold()
+            users = [user for user in users if q in str(user).casefold()]
+        return sorted(users, key=lambda user: user.get("last_seen", ""), reverse=True)
+
+    def events(self, query: str = "") -> list[dict[str, Any]]:
+        events = list(reversed(self.data()["events"]))
+        if query:
+            q = query.casefold()
+            events = [event for event in events if q in str(event).casefold()]
+        return events
+
+    def downloads(self, collection: str | None = None) -> list[dict[str, Any]]:
+        downloads = list(self.data()["downloads"].values())
+        if collection:
+            downloads = [item for item in downloads if item.get("collection") == collection]
+        return sorted(downloads, key=lambda item: item["count"], reverse=True)
+
 
 class ActivityLogRepository(ContentRepository):
     def __init__(self, storage: JsonStorage) -> None:
@@ -356,6 +380,25 @@ class BackupRepository:
         for path in self.storage.base_dir.glob("*.json"):
             shutil.copy2(path, destination / path.name)
         return destination
+
+
+class AboutRepository:
+    def __init__(self, storage: JsonStorage) -> None:
+        self.storage = storage
+
+    def get(self) -> dict[str, Any]:
+        current = self.storage.read("about_profile", DEFAULT_ABOUT_PROFILE)
+        merged = {**DEFAULT_ABOUT_PROFILE, **current}
+        merged["contact"] = {**DEFAULT_ABOUT_PROFILE["contact"], **current.get("contact", {})}
+        merged["social_links"] = {**DEFAULT_ABOUT_PROFILE["social_links"], **current.get("social_links", {})}
+        if merged != current:
+            self.storage.write("about_profile", merged)
+        return merged
+
+    def update(self, changes: dict[str, Any]) -> None:
+        profile = self.get()
+        profile.update(changes)
+        self.storage.write("about_profile", profile)
 
 
 class StatsRepository:
