@@ -68,7 +68,7 @@ async def books_type(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(BTN_BACK, callback_data="home:books")]]),
         )
         return
-    await query.edit_message_text("📚 Buugaag la helay:", reply_markup=content_list("books", items, "home:books"))
+    await query.edit_message_text("📚 Buugga waa la keydiyay. ✅:", reply_markup=content_list("books", items, "home:books"))
 
 
 async def books_page(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -77,7 +77,7 @@ async def books_page(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     page = int(query.data.split(":")[-1])
     ids = set(context.user_data.get("books_last_items", []))
     items = [item for item in content_repo(context, "books").all() if item["id"] in ids]
-    await query.edit_message_text("📚 Buugaag la helay:", reply_markup=content_list("books", items, "home:books", page=page))
+    await query.edit_message_text("📚 Buugga waa la keydiyay. ✅:", reply_markup=content_list("books", items, "home:books", page=page))
 
 
 async def open_book(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

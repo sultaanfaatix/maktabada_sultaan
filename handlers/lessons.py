@@ -31,7 +31,7 @@ async def lessons_subject(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     if not items:
         await query.edit_message_text("📭 Halakan Cashar kuma jiro.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(BTN_BACK, callback_data="home:lessons")]]))
         return
-    await query.edit_message_text("🎓 Casharro la helay:", reply_markup=content_list("lessons", items, "home:lessons"))
+    await query.edit_message_text("🎓 Casharrada waa la keydiyay. ✅:", reply_markup=content_list("lessons", items, "home:lessons"))
 
 
 async def open_lesson(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

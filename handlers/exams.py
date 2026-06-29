@@ -37,9 +37,9 @@ async def exams_subject(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     items = content_repo(context, "exams").filter(grade=context.user_data["exam_grade"], year=context.user_data["exam_year"], subject=subject)
     context.user_data["exams_last_items"] = [item["id"] for item in items]
     if not items:
-        await query.edit_message_text("📭 Imtixaan lagama helin xulashadan.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(BTN_BACK, callback_data="home:exams")]]))
+        await query.edit_message_text("📭 Halakan Imtixaan kuma jiro.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(BTN_BACK, callback_data="home:exams")]]))
         return
-    await query.edit_message_text("📝 Imtixaanaad la helay:", reply_markup=content_list("exams", items, "home:exams"))
+    await query.edit_message_text("📝 Imtixaanka waa la Keydiyey. ✅:", reply_markup=content_list("exams", items, "home:exams"))
 
 
 async def exams_page(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -48,7 +48,7 @@ async def exams_page(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     page = int(query.data.split(":")[-1])
     ids = set(context.user_data.get("exams_last_items", []))
     items = [item for item in content_repo(context, "exams").all() if item["id"] in ids]
-    await query.edit_message_text("📝 Imtixaanaad la helay:", reply_markup=content_list("exams", items, "home:exams", page=page))
+    await query.edit_message_text("📝 Imtixaanka waa la Keydiyey. ✅:", reply_markup=content_list("exams", items, "home:exams", page=page))
 
 
 async def open_exam(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

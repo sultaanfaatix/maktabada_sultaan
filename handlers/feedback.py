@@ -19,7 +19,7 @@ async def feedback_submit(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         return
     name, comment = [part.strip() for part in raw.split("|", 1)]
     feedback_repo(context).add({"name": name, "comment": comment, "user_id": update.effective_user.id})
-    await update.message.reply_text("Mahadsanid. Faalladaada waa la helay.")
+    await update.message.reply_text("Mahadsanid. Faalladaada waa la keydiyey ✅.")
 
 
 def register_feedback_handlers(app: Application) -> None:
