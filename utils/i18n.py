@@ -1,10 +1,10 @@
-APP_NAME = "MAKTABADA SULTAAN v2"
+APP_NAME = "MAKTABADA SULTAAN"
 
 BTN_BOOKS = "📚 Buugaag"
 BTN_EXAMS = "📝 Imtixaanaad"
-BTN_LESSONS = "🎓 Casharro"
+BTN_LESSONS = "🎓 Casharro (Made Easy)"
 BTN_RESULTS = "📊 Natiijooyin"
-BTN_QA = "❓ S&J"
+BTN_QA = "❓ Su'aalo & Jawaabo"
 BTN_FEEDBACK = "💬 Faallo"
 BTN_SETTINGS = "⚙️ Settings"
 BTN_PROFILE = "👤 Profile"
@@ -25,15 +25,15 @@ LEVEL_LABELS = {
 }
 
 PERMISSION_LABELS = {
-    "upload_books": "Upload Books",
-    "upload_exams": "Upload Exams",
-    "upload_lessons": "Upload Lessons",
-    "manage_results": "Manage Results",
-    "manage_subjects": "Manage Subjects",
-    "manage_classes": "Manage Classes",
-    "manage_years": "Manage Academic Years",
-    "manage_admins": "Manage Other Admins",
-    "view_statistics": "View Statistics",
+    "upload_books": "Buugaag ku dar",
+    "upload_exams": "Imtixaanaad ku dar",
+    "upload_lessons": "Casharro ku dar",
+    "manage_results": "Maareey Natiijooyin",
+    "manage_subjects": "Maareey Maadooyin",
+    "manage_classes": "Maareey Qaybaha",
+    "manage_years": "Maareey Sanad Dugsiyeed",
+    "manage_admins": "Maareey Admins",
+    "view_statistics": "Eeg Tirakoobka",
     "delete_content": "Delete Content",
     "backup_restore": "Backup & Restore",
 }

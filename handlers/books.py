@@ -64,7 +64,7 @@ async def books_type(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     context.user_data["books_last_items"] = [item["id"] for item in items]
     if not items:
         await query.edit_message_text(
-            "📭 Buug lagama helin xulashadan.",
+            "📭 Halakan Buuga kuma jiro.",
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(BTN_BACK, callback_data="home:books")]]),
         )
         return

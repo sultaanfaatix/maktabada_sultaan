@@ -12,13 +12,13 @@ from utils.i18n import ALL_PERMISSIONS, PERMISSION_LABELS
 def admin_menu_markup() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("📚 Upload Buug", callback_data="admin:upload:books")],
-            [InlineKeyboardButton("📝 Upload Imtixaan", callback_data="admin:upload:exams")],
-            [InlineKeyboardButton("🎓 Upload Cashar", callback_data="admin:upload:lessons")],
+            [InlineKeyboardButton("📚 Soo Gudbi Buug", callback_data="admin:upload:books")],
+            [InlineKeyboardButton("📝 Soo Gudbi Imtixaan", callback_data="admin:upload:exams")],
+            [InlineKeyboardButton("🎓 Soo Gudbi Cashar", callback_data="admin:upload:lessons")],
             [InlineKeyboardButton("📊 Natiijooyin", callback_data="admin:results_help"), InlineKeyboardButton("❓ S&J", callback_data="admin:qa_help")],
             [InlineKeyboardButton("📖 Maaddooyin", callback_data="admin:subjects_help"), InlineKeyboardButton("🏫 Fasallo", callback_data="admin:classes_help")],
             [InlineKeyboardButton("📅 Sanad Dugsiyeed", callback_data="admin:years_help"), InlineKeyboardButton("👥 Admins", callback_data="admin:admins_help")],
-            [InlineKeyboardButton("📈 Statistics", callback_data="admin:stats"), InlineKeyboardButton("💬 Faallo", callback_data="admin:feedback")],
+            [InlineKeyboardButton("📈 Tira-koob", callback_data="admin:stats"), InlineKeyboardButton("💬 Faallo", callback_data="admin:feedback")],
             [InlineKeyboardButton("🗂 Files", callback_data="admin:files_help"), InlineKeyboardButton("💾 Backup", callback_data="admin:backup_help")],
             [InlineKeyboardButton("🔙 Dib-u-noqo", callback_data="home:menu")],
         ]

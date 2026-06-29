@@ -23,11 +23,11 @@ async def start_upload(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     settings = platform_repo(context).get()
     if kind == "books":
         labels = [meta["label"] for meta in settings["levels"].values()]
-        await query.edit_message_text("📚 Upload Buug\n\nXulo heer:", reply_markup=rows_from("upload:level", labels, back="admin:menu"))
+        await query.edit_message_text("📚 Soo Gudbi Buug\n\nXulo heer:", reply_markup=rows_from("upload:level", labels, back="admin:menu"))
     elif kind == "exams":
-        await query.edit_message_text("📝 Upload Imtixaan\n\nXulo fasal:", reply_markup=rows_from("upload:exam_grade", settings["exam_classes"], back="admin:menu"))
+        await query.edit_message_text("📝 Soo Gudbi Imtixaan\n\nXulo fasal:", reply_markup=rows_from("upload:exam_grade", settings["exam_classes"], back="admin:menu"))
     else:
-        await query.edit_message_text("🎓 Upload Cashar\n\nXulo fasal:", reply_markup=rows_from("upload:lesson_grade", settings["lesson_classes"], back="admin:menu"))
+        await query.edit_message_text("🎓 Soo Gudbi Cashar\n\nXulo fasal:", reply_markup=rows_from("upload:lesson_grade", settings["lesson_classes"], back="admin:menu"))
     return FIELD
 
 
@@ -100,13 +100,13 @@ async def upload_file(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     record = content_repo(context, upload["kind"]).add({**upload, "file_id": file_id, "media_type": media_type})
     activity_repo(context).log(update.effective_user.id, "upload", {"collection": upload["kind"], "id": record["id"]})
     context.user_data.pop("upload", None)
-    await update.message.reply_text(f"Upload waa la keydiyay.\nID: {record['id']}")
+    await update.message.reply_text(f"Soo gudbinta waa la keydiyay.\nID: {record['id']}")
     return ConversationHandler.END
 
 
 async def cancel_upload(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data.pop("upload", None)
-    await update.effective_message.reply_text("Upload waa la joojiyay.")
+    await update.effective_message.reply_text("Soo gudbinta waa la joojiyay.")
     return ConversationHandler.END
 
 

@@ -29,7 +29,7 @@ async def lessons_subject(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     subject = query.data.split(":", 2)[2]
     items = content_repo(context, "lessons").filter(grade=context.user_data["lesson_grade"], subject=subject)
     if not items:
-        await query.edit_message_text("📭 Cashar lagama helin xulashadan.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(BTN_BACK, callback_data="home:lessons")]]))
+        await query.edit_message_text("📭 Halakan Cashar kuma jiro.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(BTN_BACK, callback_data="home:lessons")]]))
         return
     await query.edit_message_text("🎓 Casharro la helay:", reply_markup=content_list("lessons", items, "home:lessons"))
 

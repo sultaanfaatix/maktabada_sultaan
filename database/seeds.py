@@ -60,7 +60,7 @@ DEFAULT_ABOUT_PROFILE = {
     "founder_name": "Sultaan",
     "founder_title": "Founder & Education Platform Lead",
     "organization": "MAKTABADA SULTAAN",
-    "mission": "In la fududeeyo helitaanka buugaag, imtixaanno, casharro, natiijooyin iyo muraajaco tayo leh oo macallimiin iyo arday kasta gaadhi karaan.",
+    "mission": "In la fududeeyo helitaanka buugaag, imtixaanno, casharro, natiijooyin iyo muraajaco tayo leh oo macallimiin iyo ardayda gaadhi karaan.",
     "description": "MAKTABADA SULTAAN waa madal waxbarasho oo Telegram ku shaqeysa, looguna talagalay ardayda, macallimiinta iyo waalidiinta.",
 
     "contact": {
@@ -73,7 +73,7 @@ DEFAULT_ABOUT_PROFILE = {
             "chat_link": "https://wa.me/252684613207"
         },
         "email": "sultaanfaatix@gmail.com",
-        "telegram": "@MAKTABADA SULTAAN 📚"
+        "telegram_name": "MAKTABADA SULTAAN"
     },
 
     "social_links": {
