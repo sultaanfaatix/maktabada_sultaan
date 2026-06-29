@@ -4,16 +4,25 @@
   "organization": "MAKTABADA SULTAAN",
   "mission": "In la fududeeyo helitaanka buugaag, imtixaanno, casharro, natiijooyin iyo muraajaco tayo leh oo arday kasta gaari karo.",
   "description": "MAKTABADA SULTAAN waa madal waxbarasho oo Telegram ku shaqeysa, looguna talagalay ardayda, macallimiinta iyo waalidiinta.",
+
   "contact": {
-    "phone": "+252 000 000000",
-    "email": "info@maktabadasultaan.example",
-    "telegram": "@maktabadasultaan"
+    "phone": {
+      "display": "+252 61 9568689",
+      "call_link": "tel:+252619568689"
+    },
+    "whatsapp": {
+      "display": "+252 68 4613207",
+      "chat_link": "https://wa.me/252684613207"
+    },
+    "email": "sultaanfaatix@gmail.com",
+    "telegram_name": "MAKTABADA SULTAAN"
   },
+
   "social_links": {
-    "Telegram": "https://t.me/maktabadasultaan",
-    "Facebook": "https://facebook.com/maktabadasultaan",
-    "YouTube": "https://youtube.com/@maktabadasultaan"
+    "telegram": "https://t.me/SultanLibraryBot",
+    "facebook": "https://www.facebook.com/sultaanfaatix"
   },
+
   "photo_file_id": "",
   "logo_file_id": ""
 }
