@@ -27,6 +27,6 @@ class Settings:
         return cls(
             bot_token=token,
             admin_id=int(admin_id),
-            data_dir=Path(os.getenv("DATA_DIR", "database/json_data")),
+            data_dir=Path(os.getenv("DATA_DIR", "/data")),
             log_level=os.getenv("LOG_LEVEL", "INFO"),
         )
