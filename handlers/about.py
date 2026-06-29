@@ -9,8 +9,8 @@ from database.factory import about_repo, stats_repo
 def about_nav() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("👤 Founder", callback_data="about:founder"), InlineKeyboardButton("🎯 Mission", callback_data="about:mission")],
-            [InlineKeyboardButton("☎️ Contact", callback_data="about:contact"), InlineKeyboardButton("📊 Stats", callback_data="about:stats")],
+            [InlineKeyboardButton("👤 Aasaasaha", callback_data="about:founder"), InlineKeyboardButton("🎯 Mission", callback_data="about:mission")],
+            [InlineKeyboardButton("☎️ Xidhiidh", callback_data="about:contact"), InlineKeyboardButton("📊 Stats", callback_data="about:stats")],
             [InlineKeyboardButton("🔙 Dib-u-noqo", callback_data="home:menu")],
         ]
     )
