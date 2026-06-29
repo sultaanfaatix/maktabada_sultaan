@@ -37,6 +37,7 @@ DEFAULT_PLATFORM_SETTINGS = {
     "book_types": ["Student Book", "Teacher Guide", "Revision"],
     "exam_classes": ["8aad", "Form 4"],
     "exam_years": [
+        "2015-2016",
         "2016-2017",
         "2017-2018",
         "2018-2019",
@@ -51,7 +52,7 @@ DEFAULT_PLATFORM_SETTINGS = {
     "lesson_classes": ["Form 1", "Form 2", "Form 3", "Form 4"],
     "result_classes": ["7aad", "8aad", "Form 1", "Form 2", "Form 3", "Form 4"],
     "qa_classes": ["5aad", "6aad", "7aad", "8aad", "Form 1", "Form 2", "Form 3", "Form 4"],
-    "exam_types": ["Monthly 1", "Monthly 2", "Mid-term 1", "Mid-term 2", "Final Exam"],
+    "exam_types": ["Monthly 1", "Monthly 2", "Mid-term 1", "Monthly 3", "Monthly 4", "Final Exam"],
 }
 
 
@@ -59,18 +60,28 @@ DEFAULT_ABOUT_PROFILE = {
     "founder_name": "Sultaan",
     "founder_title": "Founder & Education Platform Lead",
     "organization": "MAKTABADA SULTAAN",
-    "mission": "In la fududeeyo helitaanka buugaag, imtixaanno, casharro, natiijooyin iyo muraajaco tayo leh oo arday kasta gaari karo.",
+    "mission": "In la fududeeyo helitaanka buugaag, imtixaanno, casharro, natiijooyin iyo muraajaco tayo leh oo macallimiin iyo arday kasta gaadhi karaan.",
     "description": "MAKTABADA SULTAAN waa madal waxbarasho oo Telegram ku shaqeysa, looguna talagalay ardayda, macallimiinta iyo waalidiinta.",
+
     "contact": {
-        "phone": "+252 000 000000",
-        "email": "info@maktabadasultaan.example",
-        "telegram": "@maktabadasultaan"
+        "phone": {
+            "display": "+252 61 9568689",
+            "call_link": "tel:+252619568689"
+        },
+        "whatsapp": {
+            "display": "+252 68 4613207",
+            "chat_link": "https://wa.me/252684613207"
+        },
+        "email": "sultaanfaatix@gmail.com",
+        "telegram": "@MAKTABADA SULTAAN"
     },
+
     "social_links": {
-        "Telegram": "https://t.me/maktabadasultaan",
-        "Facebook": "https://facebook.com/maktabadasultaan",
-        "YouTube": "https://youtube.com/@maktabadasultaan"
+        "telegram": "https://t.me/SultanLibraryBot",
+        "facebook": "https://www.facebook.com/sultaanfaatix",
+        "youtube": "https://youtube.com/@maktabadasultaan"
     },
+
     "photo_file_id": "",
     "logo_file_id": ""
 }
