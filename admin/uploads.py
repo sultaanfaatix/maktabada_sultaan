@@ -100,13 +100,13 @@ async def upload_file(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     record = content_repo(context, upload["kind"]).add({**upload, "file_id": file_id, "media_type": media_type})
     activity_repo(context).log(update.effective_user.id, "upload", {"collection": upload["kind"], "id": record["id"]})
     context.user_data.pop("upload", None)
-    await update.message.reply_text(f"Soo gudbinta waa la keydiyay.\nID: {record['id']}")
+    await update.message.reply_text(f"Soo Gudbinta waa la KEYDIYEY.✅\nID: {record['id']}")
     return ConversationHandler.END
 
 
 async def cancel_upload(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data.pop("upload", None)
-    await update.effective_message.reply_text("Soo gudbinta waa la joojiyay.")
+    await update.effective_message.reply_text("Soo Gudbinta waa la JOOJIYEY.❌")
     return ConversationHandler.END
 
 
