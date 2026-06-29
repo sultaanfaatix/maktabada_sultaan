@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import logging
+import os
+from pathlib import Path
 
 from telegram.ext import Application, CommandHandler
 
@@ -15,6 +17,15 @@ from handlers.lessons import register_lessons_handlers
 from handlers.qa import register_qa_handlers
 from handlers.results import register_results_handlers
 from handlers.start import register_start_handlers
+
+# =========================
+# Data directory (Render Disk)
+# =========================
+DATA_DIR = Path("/data")
+DATA_DIR.mkdir(exist_ok=True)
+
+print("DATA DIR:", DATA_DIR)
+print("Exists:", DATA_DIR.exists())
 
 
 async def cancel(update, context) -> None:
