@@ -34,7 +34,7 @@ async def subjects_menu(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     query = update.callback_query
     await query.answer()
     if not has_permission(update, context, "manage_subjects"):
-        await query.answer("Ogolaansho kuma filna.", show_alert=True)
+        await query.answer("Ogolaansho lama bixin.", show_alert=True)
         return
     await query.edit_message_text(
         "📖 Maaddooyin\n\nDooro hawsha aad rabto:",
@@ -58,11 +58,11 @@ async def years_menu(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     query = update.callback_query
     await query.answer()
     if not has_permission(update, context, "manage_years"):
-        await query.answer("Ogolaansho kuma filna.", show_alert=True)
+        await query.answer("Ogolaansho lama bixin.", show_alert=True)
         return
     await query.edit_message_text(
         "📅 Sanad Dugsiyeed\n\nDooro hawsha aad rabto:",
-        reply_markup=action_keyboard("year", [("add", "➕ Ku dar sanad"), ("rename", "✏️ Bedel sanad"), ("delete", "🗑 Tirtir sanad")]),
+        reply_markup=action_keyboard("year", [("add", "➕ Ku dar sanad dugsiyeed"), ("rename", "✏️ Beddel sanad"), ("delete", "🗑 Tirtir sanad")]),
     )
 
 

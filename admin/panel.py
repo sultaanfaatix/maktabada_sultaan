@@ -19,7 +19,7 @@ def admin_menu_markup() -> InlineKeyboardMarkup:
             [InlineKeyboardButton("📖 Maaddooyin", callback_data="admin:subjects_help"), InlineKeyboardButton("🏫 Fasallo", callback_data="admin:classes_help")],
             [InlineKeyboardButton("📅 Sanad Dugsiyeed", callback_data="admin:years_help"), InlineKeyboardButton("👥 Admins", callback_data="admin:admins_help")],
             [InlineKeyboardButton("📈 Tira-koob", callback_data="admin:stats"), InlineKeyboardButton("💬 Faallo", callback_data="admin:feedback")],
-            [InlineKeyboardButton("🗂 Files", callback_data="admin:files_help"), InlineKeyboardButton("💾 Backup", callback_data="admin:backup_help")],
+            [InlineKeyboardButton("🗂 Galalka", callback_data="admin:files_help"), InlineKeyboardButton("💾 Backup", callback_data="admin:backup_help")],
             [InlineKeyboardButton("🔙 Dib-u-noqo", callback_data="home:menu")],
         ]
     )

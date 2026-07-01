@@ -53,18 +53,18 @@ async def upload_field(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
         await query.edit_message_text("Xulo nooca buugga:", reply_markup=rows_from("upload:book_type", labels, back="admin:menu"))
     elif field == "book_type":
         upload["book_type"] = upload.pop("book_type_map", {}).get(value, value)
-        await query.edit_message_text("Soo dir title-ka buugga.")
+        await query.edit_message_text("Soo dir ciwaanka buugga.")
         return TITLE
     elif field == "exam_grade":
         upload["grade"] = value
-        await query.edit_message_text("Xulo sanad dugsiyeed:", reply_markup=rows_from("upload:exam_year", repo.get()["exam_years"], back="admin:menu"))
+        await query.edit_message_text("Xulo Sanad Dugsiyeed:", reply_markup=rows_from("upload:exam_year", repo.get()["exam_years"], back="admin:menu"))
     elif field == "exam_year":
         upload["year"] = value
         level = repo.level_for_class(upload["grade"])
         await query.edit_message_text("Xulo maaddo:", reply_markup=rows_from("upload:exam_subject", repo.subjects_for_level(level), back="admin:menu"))
     elif field == "exam_subject":
         upload["subject"] = value
-        await query.edit_message_text("Soo dir title-ka imtixaanka.")
+        await query.edit_message_text("Soo dir ciwaanka imtixaanka.")
         return TITLE
     elif field == "lesson_grade":
         upload["grade"] = value
@@ -72,7 +72,7 @@ async def upload_field(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
         await query.edit_message_text("Xulo maaddo:", reply_markup=rows_from("upload:lesson_subject", repo.subjects_for_level(level), back="admin:menu"))
     elif field == "lesson_subject":
         upload["subject"] = value
-        await query.edit_message_text("Soo dir title-ka casharka.")
+        await query.edit_message_text("Soo dir ciwaanka casharka.")
         return TITLE
     return FIELD
 
@@ -92,7 +92,7 @@ async def upload_file(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
         await update.message.reply_text("Fadlan soo dir document ama video.")
         return FILE
     if upload["kind"] != "lessons" and not document:
-        await update.message.reply_text("Buugaag iyo imtixaanno waa inay PDF/document noqdaan.")
+        await update.message.reply_text("Waaxda Buugaagta iyo imtixaannada waa inay PDF/document noqdaan.")
         return FILE
 
     file_id = document.file_id if document else video.file_id
